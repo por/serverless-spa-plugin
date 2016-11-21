@@ -3,5 +3,19 @@
   "version": "1.0.0",
   "description": "A plugin to simplify deploying Single Page Application using S3 and CloudFront",
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "3.10.2",
+    "eslint-plugin-node": "3.0.4"
+  },
+  "engines": {
+    "node": ">=4.3.0"
+  },
+  "eslintConfig": {
+    "plugins": ["node"],
+    "extends": ["eslint:recommended", "plugin:node/recommended"],
+    "rules": {
+      "node/exports-style": ["error", "module.exports"]
+    }
+  }
 }

@@ -54,23 +54,21 @@ class ServerlessPlugin {
   domainInfo() {
     const provider = this.serverless.getProvider('aws');
     const stackName = provider.naming.getStackName(this.options.stage);
-    return provider
-      .request(
-        'CloudFormation',
-        'describeStacks',
-        { StackName: stackName },
-        this.options.stage,
-        this.options.region,
-      )
-      .then((result) => {
-        const outputs = result.Stacks[0].Outputs;
-        const output = outputs.find(entry => entry.OutputKey === 'WebAppCloudFrontDistributionOutput');
-        if (output.OutputValue) {
-          this.serverless.cli.log(`Web App Domain: ${output.OutputValue}`);
-        } else {
-          this.serverless.cli.log('Web App Domain: Not Found');
-        }
-      });
+    return provider.request(
+      'CloudFormation',
+      'describeStacks',
+      { StackName: stackName },
+      this.options.stage,
+      this.options.region
+    ).then((result) => {
+      const outputs = result.Stacks[0].Outputs;
+      const output = outputs.find(entry => entry.OutputKey === 'WebAppCloudFrontDistributionOutput');
+      if (output.OutputValue) {
+        this.serverless.cli.log(`Web App Domain: ${output.OutputValue}`);
+      } else {
+        this.serverless.cli.log('Web App Domain: Not Found');
+      }
+    });
   }
 }
 
